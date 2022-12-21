@@ -9,6 +9,8 @@ class Organize extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     public function events() {
         return $this->belongsToMany(Event::class, 'event_coorganizers');
     }
