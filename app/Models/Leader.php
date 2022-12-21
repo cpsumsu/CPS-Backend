@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Leader extends Model
 {
     use HasFactory;
+
+    public function events() {
+        return $this->belongsToMany(Event::class, 'event_leaders');
+    }
 }
