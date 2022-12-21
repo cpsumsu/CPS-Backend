@@ -21,6 +21,6 @@ Route::get('/phpinfo', function () {
     return phpinfo();
 });
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'cps-admin'], function () {
     Voyager::routes();
 });

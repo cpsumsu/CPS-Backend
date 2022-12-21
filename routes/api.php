@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+// Controllers
+// use App\Http\Controllers\EventController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::get('/events', 'EventController@show')
+    ->name('events');
+
+Route::get('/events/{id}', 'EventController@getEventById')
+    ->whereNumber('id')
+    ->name('eventById');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
