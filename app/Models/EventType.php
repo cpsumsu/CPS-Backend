@@ -9,4 +9,8 @@ class EventType extends Model
 {
     use HasFactory;
     public $timestamps = false;
+
+    public function events() {
+        return $this->hasMany(Event::class);
+    }
 }
