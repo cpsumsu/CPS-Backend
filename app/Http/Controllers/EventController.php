@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use Illuminate\Support\Facades\Cache;
 
 class EventController extends Controller
 {
+    public $cacheTime = 60; // 60 seconds before another database fetch
+
     public function index () {
         $events = Event::all();
 
@@ -14,11 +17,14 @@ class EventController extends Controller
     }
     public function show (Request $request) {
         $pagination_num = $request->query('limit') ?? 10;
+        $page_num = $request->query('page') ?? 1;
 
-        $events = Event::with('eventType', 'leaders', 'organizes')
-                    ->paginate($pagination_num);
+        $value = Cache::remember("events".$pagination_num.$page_num, $this->cacheTime, function () use ($pagination_num) {
+            return Event::with('eventType', 'leaders', 'organizes')
+            ->paginate($pagination_num);
+        });
 
-        return $events;
+        return $value;
     }
 
     public function getEventById ($id) {
