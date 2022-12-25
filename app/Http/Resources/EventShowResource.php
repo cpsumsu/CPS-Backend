@@ -25,8 +25,8 @@ class EventShowResource extends JsonResource
             'date' => $this->date,
             'image' =>url('/storage') . '/' . $this->image,
             'event_type' => $this->whenLoaded('eventType')->name,
-            'leaders' => LeaderResource::collection($this->whenLoaded('leaders')),
-            'organizers' =>  OrganizerResource::collection($this->whenLoaded('organizers'))
+            'leaders' => $this->leaders()->exists() ? LeaderResource::collection($this->whenLoaded('leaders')) : null,
+            'organizers' =>  $this->organizers()->exists() ? OrganizerResource::collection($this->whenLoaded('organizers')) : null,
         ];
     }
 }
