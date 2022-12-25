@@ -1,3 +1,21 @@
+### 2022.12.25
+[Coding]
+
+The API data is so how, returning everything from the database model like the `created_date` and `updated_date`. Which I don't like it, also the url format is not the full path.
+
+Therefore, I found a way to filter and modify the data with `API Resource Class`. It basically is like a middleware layer between the data from database and the data being returned in the API.
+
+<details>
+  <summary>showcase / screenshot - API before and after</summary>
+  
+  <p align="center">
+    <img src="https://user-images.githubusercontent.com/82365010/209470039-9a9609c5-8b4d-4c8f-9915-26ba5cf01a04.png">
+    <img src="https://user-images.githubusercontent.com/82365010/209470042-407fe259-8617-4a29-a078-d7b4006f30e9.png">
+  </p>
+</details>
+
+---
+
 ### 2022.12.23-24
 [Deploy]
 
