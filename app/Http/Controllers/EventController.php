@@ -5,31 +5,27 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use Illuminate\Support\Facades\Cache;
+use App\Http\Resources\EventShowResource;
 
 class EventController extends Controller
 {
-    public $cacheTime = 60; // 60 seconds before another database fetch
+    public $cacheTime = 60; // seconds before another database fetch
 
-    public function index () {
-        $events = Event::all();
-
-        return $events;
-    }
-    public function show (Request $request) {
+    public function index (Request $request) {
         $pagination_num = $request->query('limit') ?? 10;
         $page_num = $request->query('page') ?? 1;
 
-        $value = Cache::remember("events".$pagination_num.$page_num, $this->cacheTime, function () use ($pagination_num) {
-            return Event::with('eventType', 'leaders', 'organizes')
-                        ->orderBy('date', 'desc')
-                        ->paginate($pagination_num, $columns = ['id', 'name', 'venue', 'date', 'image', 'event_type_id']);
+        $value = Cache::remember("events-$pagination_num-$page_num", $this->cacheTime, function () use ($pagination_num) {
+            return EventShowResource::collection(Event::with('eventType', 'leaders', 'organizers')
+            ->orderBy('date', 'desc')
+            ->paginate($pagination_num));
         });
 
-        return $value;
+        return $value;        
     }
 
-    public function getEventById ($id) {
-        $event = Event::with('eventType', 'leaders', 'organizes')
+    public function show ($id) {
+        $event = Event::with('eventType', 'leaders', 'organizers')
                     ->whereIn('id', [$id])
                     ->get();
 
@@ -40,6 +36,12 @@ class EventController extends Controller
         }
 
         return $event;
+    }
+
+    public function list () {
+        $events = Event::all();
+
+        return $events;
     }
 
 }

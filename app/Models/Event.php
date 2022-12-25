@@ -17,7 +17,7 @@ class Event extends Model
         return $this->belongsToMany(Leader::class, 'event_leaders'); // laravel by default go for event_leader
     }
 
-    public function organizes() {
-        return $this->belongsToMany(Organize::class, 'event_coorganizers');
+    public function organizers() {
+        return $this->belongsToMany(Organizer::class, 'event_coorganizers');
     }
 }

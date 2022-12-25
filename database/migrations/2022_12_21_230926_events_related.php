@@ -25,7 +25,7 @@ class EventsRelated extends Migration
             $table->tinyText('name');
         });
 
-        Schema::create('organizes', function (Blueprint $table) {
+        Schema::create('organizers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->tinyText('name');
         });
@@ -60,18 +60,18 @@ class EventsRelated extends Migration
                 ->onDelete('cascade');
         });
 
-        Schema::create('event_coorganizes', function (Blueprint $table) {
+        Schema::create('event_coorganizers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('event_id');
-            $table->unsignedBigInteger('organize_id');
+            $table->unsignedBigInteger('organizer_id');
             $table->timestamps();
 
             $table->foreign('event_id')
                 ->references('id')->on('events')
                 ->onDelete('cascade');
 
-            $table->foreign('organize_id')
-                ->references('id')->on('organizes')
+            $table->foreign('organizer_id')
+                ->references('id')->on('organizers')
                 ->onDelete('cascade');
         });
 

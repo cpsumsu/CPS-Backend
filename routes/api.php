@@ -17,10 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/events', 'EventController@show')
+Route::get('/events', 'EventController@index')
     ->name('events');
 
-Route::get('/events/{id}', 'EventController@getEventById')
+Route::get('/events/{id}', 'EventController@show')
     ->whereNumber('id')
     ->name('eventById');
 
