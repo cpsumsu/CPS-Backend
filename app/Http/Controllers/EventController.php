@@ -26,15 +26,17 @@ class EventController extends Controller
     }
 
     public function show ($id) {
-        $event = EventResource::make(Event::with('eventType', 'leaders', 'organizers')
+        $event = Event::with('eventType', 'leaders', 'organizers')
             ->whereIn('id', [$id])
-            ->first());
+            ->first();
 
-        if ($event->count() === 0) {
+        if (is_null($event)) {
             return response()->json([
                 'message' => 'Event not found.'
             ], 404);
         }
+
+        $event = EventResource::make($event);
 
         return $event;
     }
