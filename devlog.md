@@ -1,3 +1,10 @@
+### 2022.12.27
+[Coding]
+
+Added API Resource for Event Detail, also the error handling when there's no such Id for the event.
+
+---
+
 ### 2022.12.25
 [Coding]
 
