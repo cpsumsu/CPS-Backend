@@ -13,7 +13,7 @@ class EventController extends Controller
     public $cacheTime = 60; // seconds before another database fetch
 
     public function index (Request $request) {
-        $pagination_num = $request->query('limit') ?? 10;
+        $pagination_num = $request->query('limit') ?? 12;
         $page_num = $request->query('page') ?? 1;
 
         $events = Cache::remember("events-$pagination_num-$page_num", $this->cacheTime, function () use ($pagination_num) {
