@@ -3,9 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// Controllers
-// use App\Http\Controllers\EventController;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,6 +20,9 @@ Route::get('/events', 'EventController@index')
 Route::get('/events/{id}', 'EventController@show')
     ->whereNumber('id')
     ->name('eventById');
+
+Route::get('/metaverse_quotes', "WebDevHackathonController@index")
+    ->name("metaverse_quotes");
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
